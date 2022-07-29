@@ -4,6 +4,12 @@
 #define WIFI_PASSWORD "memory122"
 #define WIFI_TIMEOUT_MS 20000
 
+#define BUZZER 14
+#define NOTE_B3  62
+#define NOTE_C4  65
+#define NOTE_G3  98
+#define NOTE_E4  82
+
 #define MAX_DIFFICULTY 6
 
 //Usaremos a porta 80
@@ -13,8 +19,13 @@ WiFiServer server(80);
 const int outputs[] = {25,26,27,33};
 const int n_outputs = sizeof(outputs)/sizeof(const int);
 
+//As notas representantes de cada led
+int tones[] = {NOTE_C4, NOTE_G3, NOTE_B3, NOTE_E4};
+
 //O vetor no qual serao guardadas as cores que devem ser apertadas (geracao pseudo-aleatoria)
 int answers[MAX_DIFFICULTY];
+//O vetor no qual serao armazenadas as notas correspondentes as cores
+int notes[MAX_DIFFICULTY];
 
 //Quantas cores se deve responder em cada rodada e a quantidade de rodadas acertadas
 int difficulty;
@@ -34,6 +45,7 @@ void restart_game(){
   current_answer = 0;
   for(int i = 0; i < MAX_DIFFICULTY; ++i){
     answers[i] = 0;
+    notes[i] = 0;
   }
   generate_answers();
   show_answers();
@@ -42,7 +54,9 @@ void restart_game(){
 void generate_answers(){
   //Atribui um pino pseudo-aleatorio de outputs para cada item da sequencia answers, respeitando a dificuldade
   for(int i = 0; i < difficulty; ++i){
-    answers[i] = outputs[random(0,n_outputs)];
+    int random_index = random(0,n_outputs);
+    answers[i] = outputs[random_index];
+    notes[i] = tones[random_index];
     Serial.println(answers[i]);
   }
 }
@@ -50,8 +64,10 @@ void generate_answers(){
 void show_answers(){
   for(int i = 0; i < difficulty; ++i){
     digitalWrite(answers[i], HIGH);
-    delay(1000);
+    tone(BUZZER, notes[i], 1000);
+    delay(1500);
     digitalWrite(answers[i], LOW);
+    noTone(BUZZER);
     delay(1000);
   }
 }
@@ -130,7 +146,7 @@ void display_header(WiFiClient client){
     "<head>"
     "<meta name='viewport' content='width=device-width, initial-scale=1'>"
     "<meta charset='utf-8'>"
-    "<title>Jogo da Memoria</title>"
+    "<title>Jogo da Memória</title>"
     "</head>"
     "<style>"
     ".center {"
@@ -154,7 +170,7 @@ void display_page(WiFiClient client){
   //Retorna a pagina HTML para ser mostrada ao cliente
   display_header(client);
   client.println(
-    "<body> <div class='center'><h1> <a href='/game'>Teste sua Memoria! </a> </h1>"
+    "<body> <div class='center'><h1> <a href='/game'>Teste sua Memória! </a> </h1>"
     "</br>"
     "<a href='/restart' class='button' style='background-color: black;'>Reiniciar Jogo</a>"
     "</br>"
