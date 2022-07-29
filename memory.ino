@@ -1,7 +1,7 @@
 #include <WiFi.h>
 
 #define WIFI_NETWORK "ESP32"
-#define WIFI_PASSWORD "genius122"
+#define WIFI_PASSWORD "memory122"
 #define WIFI_TIMEOUT_MS 20000
 
 #define MAX_DIFFICULTY 6
