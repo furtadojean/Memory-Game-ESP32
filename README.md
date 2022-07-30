@@ -10,12 +10,13 @@
 | Leds, Resistores e Jumpers | R$ 10|
 
 # Setup
-<!--![Foto do Projeto Físico](/images/projeto.png)-->
-<!--Video funcionando-->
+![Foto](https://user-images.githubusercontent.com/101905045/181866109-788c8713-5954-48a0-876c-e897fcb7ccdb.jpg)
+![Foto de Cima](https://user-images.githubusercontent.com/101905045/181866114-e3ee226f-e294-492d-a424-b39f40a3074a.jpg)
+
 
 
 https://user-images.githubusercontent.com/101905045/181782445-662d2283-9b3d-4f58-95be-e7ef2f3e74b8.mp4
   - Board usada: ESP32 Dev Module disponivel em https://github.com/espressif/arduino-esp32/releases/download/2.0.4/package_esp32_index.json
-  
-  # Teste
-  ![Pagina](https://user-images.githubusercontent.com/101905045/181837725-cea11282-f313-4ceb-8ed4-624f8f9e96e5.png)
+ 
+# Demonstração
+https://user-images.githubusercontent.com/101905045/181866047-e3126047-b5b1-4d5c-ba5c-0acfee236bde.mp4
